@@ -2,8 +2,9 @@
 
 // TODO: Return the aggregate CPU utilization
 float Processor::Utilization() { 
-	float total = (float)LinuxParser::Jiffies();
+	float idle = (float)LinuxParser::IdleJiffies();
   	float active = (float)LinuxParser::ActiveJiffies();
-  	this->utilization = (active/total) * 100;
+  	float duration = active + idle;
+  	this->utilization = (active/duration);
   	return this->utilization;
 }

@@ -9,7 +9,7 @@ class Processor {
 
   // TODO: Declare any necessary private members
  private:
-    float utilization;
+  	float utilization;
 };
 
 #endif

@@ -10,6 +10,7 @@ It contains relevant attributes as shown below
 */
 class Process {
  public:
+  Process(int pid);
   int Pid();                               // TODO: See src/process.cpp
   std::string User();                      // TODO: See src/process.cpp
   std::string Command();                   // TODO: See src/process.cpp
@@ -26,6 +27,8 @@ class Process {
   float cpuUtilization;
   std::string ram;
   long int up_time;
+  long cached_active_tick{0};
+  long cached_ystem_tick{0};
 };
 
 #endif

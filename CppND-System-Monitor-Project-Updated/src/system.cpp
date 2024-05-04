@@ -18,16 +18,18 @@ Processor& System::Cpu() { return this->cpu; }
 
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() {  
-  	vector<int> pids = LinuxParser::Pids();
-  	for (int pid : pids) {
-      Process process;
-      if (pid == process.Pid()) {
-        	processes.push_back(process);
-      }
-}
-    for (auto& process : processes) {
-    	process.CpuUtilization();
-  	}
+  vector<int> pids = LinuxParser::Pids();
+  
+  processes.clear();
+  
+  for (auto& pid : pids) {
+      Process process(pid);
+      processes.push_back(process);
+    }
+  
+//     for (auto& process : processes) {
+//     	process.CpuUtilization();
+//   	}
   
     std::sort(processes.begin(), processes.end());
   	return this->processes; 
@@ -41,30 +43,35 @@ std::string System::Kernel() {
 
 // TODO: Return the system's memory utilization
 float System::MemoryUtilization() {
-	this->memory_utilization = LinuxParser::MemoryUtilization();
-  	return this->memory_utilization;
+// 	this->memory_utilization = LinuxParser::MemoryUtilization();
+//   	return this->memory_utilization;
+  	return LinuxParser::MemoryUtilization();
 }
 
 // TODO: Return the operating system name
 std::string System::OperatingSystem() {
-	this->os = LinuxParser::OperatingSystem();
-  	return this->os;
+// 	this->os = LinuxParser::OperatingSystem();
+//   	return this->os;
+  	return LinuxParser::OperatingSystem();
 }
 
 // TODO: Return the number of processes actively running on the system
 int System::RunningProcesses() {
-	this->running_process = LinuxParser::RunningProcesses();
-  	return this->running_process;
+// 	this->running_process = LinuxParser::RunningProcesses();
+//   	return this->running_process;
+  	return LinuxParser::RunningProcesses();
 }
 
 // TODO: Return the total number of processes on the system
 int System::TotalProcesses() { 
-	this->total_process = LinuxParser::TotalProcesses();
-  	return this->total_process;
+// 	this->total_process = LinuxParser::TotalProcesses();
+//   	return this->total_process;
+  return LinuxParser::TotalProcesses();
 }
 
 // TODO: Return the number of seconds since the system started running
 long int System::UpTime() {
-	this->up_time = LinuxParser::UpTime();
-  	return this->up_time;
+// 	this->up_time = LinuxParser::UpTime();
+//   	return this->up_time;
+  	return LinuxParser::UpTime();
 }
