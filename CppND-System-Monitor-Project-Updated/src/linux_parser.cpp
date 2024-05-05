@@ -262,24 +262,8 @@ string LinuxParser::Ram(int pid) {
 }
 
 // TODO: Read and return the user associated with a process
-// string LinuxParser::User(int pid) { 
-//     string line, username, field;
-//     std::ifstream filestream(kProcDirectory + std::to_string(pid) + kPasswordPath);
-//     if (filestream.is_open()) {
-//       while (getline(filestream, line)) {
-//         std::istringstream linestream(line);
-//         while (linestream >> field) {
-//           if (field == std::to_string(pid)) {
-//             username = field;
-//             break;
-//           }
-//         }
-//       }
-//     }
-//     return username; 
-// }
 string LinuxParser::User(int pid) {
-  std::ifstream stream(kProcDirectory + std::to_string(pid) + kPasswordPath);
+  std::ifstream stream(kPasswordPath);
   if (stream.is_open()) {
     string line;
     string value = "x:" + Uid(pid);
@@ -307,6 +291,6 @@ long LinuxParser::UpTime(int pid) {
       }
     }
   }
-  up_time = std::stol(values[13]);
-  return up_time; 
+  up_time = std::stol(values[21]);
+  return UpTime() - up_time / sysconf(_SC_CLK_TCK); 
 }

@@ -3,13 +3,13 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+#include <sys/sysinfo.h>
 #include "process.h"
 
 using std::string;
 using std::to_string;
 using std::vector;
-
+struct sysinfo system_info;
 Process::Process(int pid) : process_id(pid) {}
 
 // TODO: Return this process's ID
@@ -20,10 +20,9 @@ int Process::Pid() {
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() {
   long active_jiffies = LinuxParser::ActiveJiffies(process_id);
-  long uptime = LinuxParser::ActiveJiffies();
-  this->cpuUtilization = (float)(active_jiffies / uptime);
-//   cached_active_tick = active_jiffies;
-//   cached_ystem_tick = uptime;
+  long uptime = LinuxParser::UpTime(process_id);
+  float utilization = (float) active_jiffies / uptime;
+  this->cpuUtilization = utilization;
   return this->cpuUtilization;
 }
 
@@ -40,7 +39,7 @@ string Process::Ram() {
 }
 
 // TODO: Return the user (name) that generated this process
-string Process::User() { 
+string Process::User() {
   	this->user = LinuxParser::User(process_id);
   	return this->user;
 }
