@@ -31,7 +31,7 @@ vector<Process>& System::Processes() {
 //     	process.CpuUtilization();
 //   	}
   
-    std::sort(processes.begin(), processes.end());
+   std::sort(processes.rbegin(), processes.rend());;
   	return this->processes; 
 }
 
